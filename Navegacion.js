@@ -10,6 +10,7 @@ import Bienvenido from "./Navegacion/Bienvenido";
 import Rec_Cuenta from "./Navegacion/Rec_Cuenta";
 import Rec_Cuenta1 from "./Navegacion/Rec_Cuenta1";
 import Crear_Cuenta from "./Navegacion/Crear_Cuenta";
+import Home from "./Navegacion/Home";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,11 @@ function Stacks() {
             <Stack.Screen
                 name="Crear_Cuenta"
                 component={Crear_Cuenta}
+            />
+
+<Stack.Screen
+                name="Home"
+                component={Home}
             />
 
 
