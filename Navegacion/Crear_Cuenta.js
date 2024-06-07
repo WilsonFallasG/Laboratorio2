@@ -1,30 +1,73 @@
-import React from "react"
-import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+
+import appFireBase from "../AccesoFirebase";
+
+
+const db = getFirestore(appFireBase)
+
 
 const Crear_Cuenta = () => {
+  const navigation = useNavigation();
 
-  const navegation = useNavigation();
+  const inicioEstado = {
+    nombreCompleto: '',
+    email: '',
+    clave: '',
+  };
+
+  const [estado, setEstado] = useState(inicioEstado);
+
+  const HandleChangeText = (value, name) => {
+    setEstado({ ...estado, [name]: value });
+  };
+
+  const RegistarUsuario = async () => {
+    try {
+      await addDoc(collection(db, 'usuarios'), { ...estado });
+      Alert.alert('Alerta', 'El usuario se registró con éxito');
+      navigation.navigate('Bienvenido');
+    } catch (error) {
+      console.error("Error al registrar el usuario: ", error);
+      Alert.alert('Error', 'Hubo un problema al registrar el usuario');
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={require('./imageLog.png')} style={styles.img_Apli} />
-
-      <Text style={styles.txtBienvenido}>Crear Cuenta</Text>
+      <Image source={require('./imageLog.png')} style={styles.img_Apli}/>
+      <Text style={styles.txtBienvenido}>Crear Cuenta</Text> 
       <Text style={styles.titulo}>Ingrese los datos solicitados:</Text>
 
-      <TextInput placeholder='Nombre completo' style={styles.txtInput} />
-      <TextInput placeholder='Correo electrónico' style={styles.txtInput} />
-      <TextInput placeholder='Contraseña' style={styles.txtInput} />
+      <TextInput 
+        placeholder='Nombre completo' 
+        style={styles.txtInput}
+        onChangeText={(value) => HandleChangeText(value, 'nombreCompleto')}
+        value={estado.nombreCompleto}
+      />
+      <TextInput 
+        placeholder='Correo electrónico' 
+        style={styles.txtInput}
+        onChangeText={(value) => HandleChangeText(value, 'email')}
+        value={estado.email}
+      />
+      <TextInput 
+        placeholder='Contraseña' 
+        style={styles.txtInput}
+        secureTextEntry
+        onChangeText={(value) => HandleChangeText(value, 'clave')}
+        value={estado.clave}
+      />
 
-      <TouchableOpacity onPress={() => navegation.navigate("Bienvenido")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Bienvenido")}>
         <Text style={styles.txtOlvido}>Iniciar Sesion</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navegation.navigate("Bienvenido")}>
+      <TouchableOpacity onPress={RegistarUsuario}>
         <LinearGradient
           colors={['#00C1BB', '#005B58']}
           start={{ x: 0, y: 0 }}
@@ -34,15 +77,12 @@ const Crear_Cuenta = () => {
           <Text style={styles.btnLogin}>Registrate</Text>
         </LinearGradient>
       </TouchableOpacity>
+
       <TouchableOpacity>
-        <Text style={styles.txtCrear_Cuenta}>
-          Ya tiene cuenta
-        </Text>
+        <Text style={styles.txtCrear_Cuenta}>Ya tiene cuenta</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navegation.navigate("Rec_Cuenta")}>
-
-        <Text style={styles.txtRigistro}>¿Has olvidado su contraseña?</Text>
-
+      <TouchableOpacity onPress={() => navigation.navigate("Rec_Cuenta")}>
+        <Text style={styles.txtRigistro}>¿Has olvidado su contraseña? </Text>
       </TouchableOpacity>
 
       <StatusBar style="auto" />
@@ -94,15 +134,13 @@ const styles = StyleSheet.create({
     color: "#00c1bb",
     marginTop: 3,
     textAlign: 'right',
-    
   },
   txtCrear_Cuenta: {
     fontSize: 18,
     color: "#00c1bb",
     marginTop: 2,
     alignItems: 'center',
-    justifyContent: 'center',
-
+    justifyContent: 'center'
   },
   txtRigistro: {
     color: "#00c1bb",
@@ -113,7 +151,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'cover',
-},
+  },
   btnGradient: {
     borderRadius: 30,
     width: 219,
@@ -128,7 +166,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    textAlign: 'center',
-
+    textAlign: 'center'
   },
 });
