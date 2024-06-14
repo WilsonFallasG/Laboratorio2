@@ -6,37 +6,35 @@ import appFireBase from "../AccesoFirebase";
 
 const db = getFirestore(appFireBase);
 
-const Crear_Cuenta = () => {
+const Crear_producto = () => {
   const navigation = useNavigation();
 
   const [estado, setEstado] = useState({
-    nombreCompleto: '',
-    email: '',
-    clave: '',
-    confirmarClave: '',
+    nombreProducto: '',
+    Codigo: '',
+    Cantidad: '',
+    Fechacaducidad: '',
   });
 
   const handleChangeText = (value, name) => {
     setEstado({ ...estado, [name]: value });
   };
 
-  const registrarUsuario = async () => {
-    if (estado.clave !== estado.confirmarClave) {
-      Alert.alert('Error', 'Las contraseñas no coinciden');
-      return;
-    }
+  const registrarProduct = async () => {
+   
 
     try {
-      await addDoc(collection(db, 'User'), {
-        nombreCompleto: estado.nombreCompleto,
-        email: estado.email,
-        clave: estado.clave
+      await addDoc(collection(db, 'Products'), {
+        nombreProducto: estado.nombreProducto,
+        Codigo: estado.Codigo,
+        Cantidad: estado.Cantidad,
+        Fechacaducidad: estado.Fechacaducidad
       });
-      Alert.alert('Alerta', 'El usuario se registró con éxito');
-      navigation.navigate('Bienvenido');
+      Alert.alert('Alerta', 'El producto se registró con éxito');
+      navigation.navigate('Inicio');
     } catch (error) {
-      console.error("Error al registrar el usuario: ", error);
-      Alert.alert('Error', 'Hubo un problema al registrar el usuario');
+      console.error("Error al registrar el product: ", error);
+      Alert.alert('Error', 'Hubo un problema al registrar el producto');
     }
   };
 
@@ -44,32 +42,32 @@ const Crear_Cuenta = () => {
     <View style={styles.container}>
       <Image source={require('../img_fondo.jpg')} style={styles.image} />
       <View style={styles.form}>
-        <Text style={styles.title}>Crear cuenta nueva</Text>
+        <Text style={styles.title}>Productos</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nombre completo"
+          placeholder="Nombre producto"
           value={estado.nombreCompleto}
-          onChangeText={(value) => handleChangeText(value, 'nombreCompleto')}
+          onChangeText={(value) => handleChangeText(value, 'nombreProducto')}
         />
         <TextInput
           style={styles.input}
-          placeholder="Correo electrónico"
-          value={estado.email}
-          onChangeText={(value) => handleChangeText(value, 'email')}
+          placeholder="Codigo"
+          value={estado.Codigo}
+          onChangeText={(value) => handleChangeText(value, 'Codigo')}
         />
         <TextInput
           style={styles.input}
-          placeholder="Contraseña"
+          placeholder="Cantidad"
           secureTextEntry={true}
-          value={estado.clave}
-          onChangeText={(value) => handleChangeText(value, 'clave')}
+          value={estado.Cantidad}
+          onChangeText={(value) => handleChangeText(value, 'Cantidad')}
         />
         <TextInput
           style={styles.input}
-          placeholder="Comprobar contraseña"
+          placeholder="Fechacaducidad"
           secureTextEntry={true}
-          value={estado.confirmarClave}
-          onChangeText={(value) => handleChangeText(value, 'confirmarClave')}
+          value={estado.Fechacaducidad}
+          onChangeText={(value) => handleChangeText(value, 'Fechacaducidad')}
         />
         <TouchableOpacity style={styles.button} onPress={registrarUsuario}>
           <Text style={styles.buttonText}>Registrarse</Text>
@@ -115,12 +113,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
-    width: '100%',
-    height: 4,
-    backgroundColor: '#a00',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+        width: '80%',
+        height: 40,
+        backgroundColor: '#a00',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
@@ -128,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Crear_Cuenta;
+export default Crear_producto;

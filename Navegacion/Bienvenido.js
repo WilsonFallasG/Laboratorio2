@@ -1,12 +1,54 @@
-import React from "react";
-import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from 'expo-status-bar';
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { auth, db } from "../AccesoFirebase";
 
 const Bienvenido = () => {
     const navigation = useNavigation();
+
+    const [email, setEmail] = useState('');
+    const [clave, setClave] = useState('');
+
+    const CorreValido = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
+    const IniciarSesion = async () => {
+        if (!CorreValido(email)) {
+            Alert.alert('Error', 'Por favor, ingrese un correo electrónico válido');
+            return;
+        }
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, clave);
+            const user = userCredential.user;
+
+            const q = query(collection(db, 'usuarios'), where('email', '==', email));
+            const querySnapshot = await getDocs(q);
+            if (!querySnapshot.empty) {
+                navigation.navigate("Home");
+            } else {
+                Alert.alert('Error', 'El correo electrónico no está registrado en la base de datos');
+            }
+        } catch (error) {
+            let errorMessage = 'Hubo un problema al iniciar sesión';
+            if (error.code === 'auth/invalid-email') {
+                errorMessage = 'El formato del correo electrónico es inválido';
+            } else if (error.code === 'auth/user-not-found') {
+                errorMessage = 'No se encontró ningún usuario con ese correo electrónico';
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = 'La contraseña es incorrecta';
+            }
+            console.error("Error al iniciar sesión: ", error);
+            Alert.alert('Error', errorMessage);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Image source={require('./imageLog.png')} style={styles.img_Apli} />
@@ -14,15 +56,25 @@ const Bienvenido = () => {
             <Text style={styles.txtBienvenido}>Bienvenido!</Text>
             <Text style={styles.titulo}>Ingresar con tu cuenta</Text>
 
-            <TextInput placeholder='multimedios@gmail.com' style={styles.txtInput} />
-            <TextInput placeholder='Contraseña' style={styles.txtInput} secureTextEntry={true} />
+            <TextInput 
+                placeholder='Correo electrónico' 
+                style={styles.txtInput} 
+                value={email} 
+                onChangeText={setEmail} 
+            />
+            <TextInput 
+                placeholder='Contraseña' 
+                style={styles.txtInput} 
+                secureTextEntry={true} 
+                value={clave} 
+                onChangeText={setClave} 
+            />
 
             <TouchableOpacity onPress={() => navigation.navigate("Rec_Cuenta")}>
                 <Text style={styles.txtOlvi_contra}>¿Has olvidado tu contraseña?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-
+            <TouchableOpacity onPress={IniciarSesion}>
                 <LinearGradient
                     colors={['#00C1BB', '#005B58']}
                     start={{ x: 0, y: 0 }}
