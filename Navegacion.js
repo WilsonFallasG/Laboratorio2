@@ -24,6 +24,10 @@ function Stacks() {
                 name="Crear_Cuenta"
                 component={Crear_Cuenta}
             />
+            <Stack.Screen
+                name="Crear_Cuenta"
+                component={Crear_Cuenta}
+            />
 
         </Stack.Navigator>
 
