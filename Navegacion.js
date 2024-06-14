@@ -8,6 +8,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Inicio from "./Navegacion/Inicio";
 import Crear_Cuenta from "./Navegacion/Crear_Cuenta";
+import Crear_producto from "./Navegacion/Crear_producto";
+
 const Stack = createStackNavigator();
 
 function Stacks() {
@@ -24,9 +26,10 @@ function Stacks() {
                 name="Crear_Cuenta"
                 component={Crear_Cuenta}
             />
-            <Stack.Screen
-                name="Crear_Cuenta"
-                component={Crear_Cuenta}
+        
+        <Stack.Screen
+                name="Crear_producto"
+                component={Crear_producto}
             />
 
         </Stack.Navigator>

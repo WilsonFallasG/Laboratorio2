@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import appFireBase from "../AccesoFirebase";
-
-const db = getFirestore(appFireBase);
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../AccesoFirebase";
 
 const Crear_producto = () => {
   const navigation = useNavigation();
@@ -21,8 +19,6 @@ const Crear_producto = () => {
   };
 
   const registrarProduct = async () => {
-   
-
     try {
       await addDoc(collection(db, 'Products'), {
         nombreProducto: estado.nombreProducto,
@@ -46,7 +42,7 @@ const Crear_producto = () => {
         <TextInput
           style={styles.input}
           placeholder="Nombre producto"
-          value={estado.nombreCompleto}
+          value={estado.nombreProducto}
           onChangeText={(value) => handleChangeText(value, 'nombreProducto')}
         />
         <TextInput
@@ -58,19 +54,17 @@ const Crear_producto = () => {
         <TextInput
           style={styles.input}
           placeholder="Cantidad"
-          secureTextEntry={true}
           value={estado.Cantidad}
           onChangeText={(value) => handleChangeText(value, 'Cantidad')}
         />
         <TextInput
           style={styles.input}
           placeholder="Fechacaducidad"
-          secureTextEntry={true}
           value={estado.Fechacaducidad}
           onChangeText={(value) => handleChangeText(value, 'Fechacaducidad')}
         />
-        <TouchableOpacity style={styles.button} onPress={registrarUsuario}>
-          <Text style={styles.buttonText}>Registrarse</Text>
+        <TouchableOpacity style={styles.button} onPress={registrarProduct}>
+          <Text style={styles.buttonText}>Guardar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -113,12 +107,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
-        width: '80%',
-        height: 40,
-        backgroundColor: '#a00',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+    width: '80%',
+    height: 40,
+    backgroundColor: '#a00',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',

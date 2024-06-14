@@ -36,12 +36,17 @@ const Inicio = ({ navigation }) => {
                 <View style={styles.footer}>
                     <Text style={styles.link}>Crear cuenta nueva </Text>
                     <TouchableOpacity
-                        onPress={() => { Crear_Cuenta }}>
+                        onPress={() => navigation.navigate('Crear_Cuenta')}>
                         <Text style={styles.link}>Regístrate</Text>
                     </TouchableOpacity>
                     <TouchableOpacity >
                         <Text style={styles.link}>Olvidé contraseña?</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Crear_producto')}>
+                        <Text style={styles.link}>Registrar Producto</Text>
+                    </TouchableOpacity>
+
                 </View>
             </View>
         </ImageBackground>
@@ -58,8 +63,8 @@ const styles = StyleSheet.create({
         width: '80%',
         alignItems: 'center',
         padding: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
-        borderRadius: 10,
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        borderRadius: 40,
     },
     logo: {
         width: 100,
@@ -90,10 +95,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     button: {
-        width: '100%',
+        width: '80%',
         padding: 15,
         backgroundColor: '#B71C1C',
-        borderRadius: 5,
+        borderRadius: 20,
         alignItems: 'center',
         marginTop: 20,
     },
@@ -111,7 +116,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     link: {
-        color: '#B71C1C',
+        color: '#f0f0f0',
         fontWeight: 'bold',
         marginBottom: 5,
     },

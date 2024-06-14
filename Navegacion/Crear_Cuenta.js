@@ -115,8 +115,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   button: {
-    width: '100%',
-    height: 4,
+    width: '80%',
+    height: 40,  // Updated height to 40
     backgroundColor: '#a00',
     borderRadius: 10,
     justifyContent: 'center',
