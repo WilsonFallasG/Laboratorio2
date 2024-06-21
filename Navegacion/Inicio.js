@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import Crear_Cuenta from './Crear_Cuenta';
-import Crear_producto from './Crear_producto';
+
 
 const Inicio = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -9,7 +8,10 @@ const Inicio = ({ navigation }) => {
 
     return (
         <ImageBackground source={require('../img_fondo.jpg')} style={styles.background}>
-            <View style={styles.container}>
+           
+                <Image source={require('../logo_fruit.png')} style={styles.logo} />
+                 
+                 <View style={styles.container}>
 
                 <View style={styles.inputContainer}>
 
@@ -34,11 +36,11 @@ const Inicio = ({ navigation }) => {
                     <Text style={styles.buttonText}>Ingresar</Text>
                 </TouchableOpacity>
                 <View style={styles.footer}>
-                    <Text style={styles.link}>Crear cuenta nueva </Text>
-                    <TouchableOpacity
+                    <Text style={styles.link}>Crear cuenta nueva <TouchableOpacity
                         onPress={() => navigation.navigate('Crear_Cuenta')}>
                         <Text style={styles.link}>Regístrate</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> </Text>
+
                     <TouchableOpacity >
                         <Text style={styles.link}>Olvidé contraseña?</Text>
                     </TouchableOpacity>
@@ -77,8 +79,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         width: '100%',
         backgroundColor: '#FFF',
-        borderRadius: 5,
-        padding: 10,
+        borderRadius: 15,
+        padding: 5,
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowRadius: 10,
@@ -119,6 +121,12 @@ const styles = StyleSheet.create({
         color: '#f0f0f0',
         fontWeight: 'bold',
         marginBottom: 5,
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+        
     },
 });
 

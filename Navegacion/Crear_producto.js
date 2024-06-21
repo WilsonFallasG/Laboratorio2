@@ -36,7 +36,7 @@ const Crear_producto = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../img_fondo.jpg')} style={styles.image} />
+      <Image source={require('../image2.png')} style={styles.image} />
       <View style={styles.form}>
         <Text style={styles.title}>Productos</Text>
         <TextInput
