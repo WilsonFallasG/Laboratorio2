@@ -112,6 +112,7 @@ const ListaProducto = () => {
   );
 
   return (
+    
     <View style={styles.container}>
       <Text style={styles.txtTitulo}>Listado de Productos</Text>
       {isEditing ? (
