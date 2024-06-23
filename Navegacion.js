@@ -9,6 +9,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Inicio from "./Navegacion/Inicio";
 import Crear_Cuenta from "./Navegacion/Crear_Cuenta";
 import Crear_producto from "./Navegacion/Crear_producto";
+import Principal from "./Navegacion/Principal";
+import ListaProducto from "./Navegacion/ListaProducto";
+import ConsumoApi from "./Navegacion/ConsumoApi";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +34,19 @@ function Stacks() {
                 name="Crear_producto"
                 component={Crear_producto}
             />
+             <Stack.Screen
+                name="Principal"
+                component={Principal}
+            />
+            <Stack.Screen
+                name="ListaProducto"
+                component={ListaProducto}
+            />
+            <Stack.Screen
+                name="ConsumoApi"
+                component={ConsumoApi}
+            />
+
 
         </Stack.Navigator>
 

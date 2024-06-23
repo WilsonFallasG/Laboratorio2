@@ -8,51 +8,49 @@ const Inicio = ({ navigation }) => {
 
     return (
         <ImageBackground source={require('../img_fondo.jpg')} style={styles.background}>
-           
-                <Image source={require('../logo_fruit.png')} style={styles.logo} />
-                 
-                 <View style={styles.container}>
-
-                <View style={styles.inputContainer}>
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="correo electrónico"
-                        value={email}
-                        onChangeText={setEmail}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="contraseña"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                </View>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Ingresar</Text>
-                </TouchableOpacity>
-                <View style={styles.footer}>
-                    <Text style={styles.link}>Crear cuenta nueva <TouchableOpacity
-                        onPress={() => navigation.navigate('Crear_Cuenta')}>
-                        <Text style={styles.link}>Regístrate</Text>
-                    </TouchableOpacity> </Text>
-
-                    <TouchableOpacity >
-                        <Text style={styles.link}>Olvidé contraseña?</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('Crear_producto')}>
-                        <Text style={styles.link}>Registrar Producto</Text>
-                    </TouchableOpacity>
-
-                </View>
+        <Image source={require('../logo_fruit.png')} style={styles.logo} />
+        
+        <View style={styles.container}>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="correo electrónico"
+                    value={email}
+                    onChangeText={setEmail}
+                />
             </View>
-        </ImageBackground>
-    );
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="contraseña"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </View>
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={() => navigation.navigate('Principal')}
+            >
+                <Text style={styles.buttonText}>Ingresar</Text>
+            </TouchableOpacity>
+            <View style={styles.footer}>
+                <Text style={styles.footerText}>
+                    Crear cuenta nueva
+                    <TouchableOpacity onPress={() => navigation.navigate('Crear_Cuenta')}>
+                        <Text style={styles.link}> Regístrate</Text>
+                    </TouchableOpacity>
+                </Text>
+                <TouchableOpacity>
+                    <Text style={styles.link}>Olvidé contraseña?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Crear_producto')}>
+                    <Text style={styles.link}>Registrar Producto</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    </ImageBackground>
+);
 };
 
 const styles = StyleSheet.create({
@@ -72,6 +70,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         marginBottom: 20,
+        
     },
     inputContainer: {
         flexDirection: 'row',
@@ -114,8 +113,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     footerText: {
-        color: '#000',
-        marginBottom: 10,
+        color: '#f0f0f0',
+        fontWeight: 'bold',
+        marginBottom: 5,
     },
     link: {
         color: '#f0f0f0',
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         marginBottom: 20,
+        alignItems: 'flex-start',
         
     },
 });
